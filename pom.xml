@@ -40,6 +40,7 @@
             <artifactId>aws-lambda-java-core</artifactId>
             <version>1.2.3</version>
         </dependency>
+<<<<<<< HEAD
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>aws-lambda-java-events</artifactId>
@@ -51,6 +52,8 @@
             <version>1.2.3</version>
         </dependency>
 
+=======
+>>>>>>> origin/main
 
         <dependency>
             <groupId>com.amazonaws</groupId>
@@ -130,6 +133,21 @@
                 </executions>
                 </plugin>
             </plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

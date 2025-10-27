@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<<<<<<< HEAD
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,11 +34,207 @@
       h1 { font-size: 1.7rem; }
       .title-container img { width: 34px; height: 34px; }
       .form-container, .tweet-list { width: 90%; padding: 20px 16px; }
+=======
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Twitter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f8fa;
+      color: #0f1419;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Contenedor del título + logo */
+    .title-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 40px;
+      margin-bottom: 10px;
+    }
+
+    .title-container img {
+      width: 42px;
+      height: 42px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #1d9bf0;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    #authButton {
+      background-color: transparent;
+      color: #1d9bf0;
+      border: 1.5px solid #1d9bf0;
+      border-radius: 9999px;
+      padding: 8px 18px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 35px;
+      transition: all 0.2s ease;
+    }
+
+    #authButton:hover {
+      background-color: #e8f5fd;
+    }
+
+    .form-container,
+    .tweet-list {
+      background: #ffffff;
+      border: 1px solid #ccd6dd;
+      border-radius: 16px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      width: 95%;
+      max-width: 600px;
+      padding: 25px 20px;
+      margin-bottom: 30px;
+      box-sizing: border-box;
+    }
+
+    .form-container h2,
+    .tweet-list h2 {
+      font-size: 1.2rem;
+      border-bottom: 1px solid #e1e8ed;
+      padding-bottom: 8px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #e1e8ed;
+      background-color: #f7f9f9;
+      color: #0f1419;
+      margin-bottom: 12px;
+      font-size: 15px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #1d9bf0;
+      background-color: #fff;
+    }
+
+    textarea::placeholder,
+    input::placeholder {
+      color: #8a98a5;
+    }
+
+    button {
+      background-color: #1d9bf0;
+      color: #fff;
+      border: none;
+      border-radius: 9999px;
+      padding: 10px 22px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #1991db;
+    }
+
+    .tweet-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #e6ecf0;
+      line-height: 1.4;
+    }
+
+    .tweet-item:last-child {
+      border-bottom: none;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      border-radius: 12px;
+      border: 1px solid #ccd6dd;
+      padding: 25px;
+      width: 90%;
+      max-width: 320px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      text-align: center;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      color: #555;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover {
+      color: #000;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .modal-content p {
+      color: #657786;
+      font-size: 14px;
+    }
+
+    @media (max-width: 650px) {
+      h1 {
+        font-size: 1.7rem;
+      }
+
+      .title-container img {
+        width: 34px;
+        height: 34px;
+      }
+
+      .form-container,
+      .tweet-list {
+        width: 90%;
+        padding: 20px 16px;
+      }
+>>>>>>> origin/main
     }
   </style>
 </head>
 <body>
 
+<<<<<<< HEAD
   <div class="title-container">
     <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f426.svg" alt="Logo Twitter" />
     <h1>Mini Twitter</h1>
@@ -180,3 +377,148 @@
   </script>
 </body>
 </html>
+=======
+<!-- Encabezado con logo -->
+<div class="title-container">
+  <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f426.svg" alt="Logo Twitter">
+  <h1>Mini Twitter</h1>
+</div>
+
+<button id="authButton" onclick="handleAuth()">Iniciar Sesión</button>
+
+<div class="form-container">
+  <h2>Nuevo Tweet</h2>
+  <input type="text" id="username" placeholder="Nombre de usuario" readonly>
+  <textarea id="content" rows="4" maxlength="140" placeholder="¿Qué está pasando?"></textarea>
+  <button onclick="postTweet()">Publicar</button>
+</div>
+
+<div class="tweet-list" id="tweetList">
+  <h2>Lista de Tweets</h2>
+</div>
+
+<div id="authModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2>No puedes publicar sin iniciar sesión</h2>
+    <p>Debes iniciar sesión para poder twittear.</p>
+    <button onclick="login()">Iniciar Sesión</button>
+  </div>
+</div>
+
+<script>
+  const API_URL = "http://localhost:8081/twitter";
+  const COGNITO_CLIENT_ID = "691lsl9acc9nnbu2b0elp59tjp";
+  const COGNITO_DOMAIN = "https://us-east-1klsbgfo2c.auth.us-east-1.amazoncognito.com";
+  const REDIRECT_URI = "http://localhost:8081/auth/callback";
+  const baseUrl = window.location.origin;
+
+  function login() {
+    window.location.href = `${COGNITO_DOMAIN}/login?client_id=${COGNITO_CLIENT_ID}&response_type=code&scope=email+openid&redirect_uri=${REDIRECT_URI}`;
+  }
+
+  function logout() {
+    localStorage.removeItem("access_token");
+    window.location.reload();
+  }
+
+  function isAuthenticated() {
+    return localStorage.getItem("access_token") !== null;
+  }
+
+  function getTokenFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("token");
+  }
+
+  function postTweet() {
+    const content = document.getElementById('content').value;
+    const username = document.getElementById('username').value;
+    const accessToken = localStorage.getItem("access_token");
+
+    if (!accessToken) {
+      openModal();
+      return;
+    }
+
+    if (!content) {
+      alert('El contenido es obligatorio.');
+      return;
+    }
+
+    if (content.length > 140) {
+      alert('El contenido no puede exceder los 140 caracteres.');
+      return;
+    }
+
+    if (!username) {
+      alert('El nombre de usuario es obligatorio.');
+      return;
+    }
+
+    const tweet = { text: content, username: username };
+
+    fetch(`${baseUrl}/twitter/createPost`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(tweet)
+    })
+      .then(response => response.json())
+      .then(() => {
+        alert('Tweet publicado correctamente');
+        loadTweets();
+        document.getElementById('content').value = '';
+      })
+      .catch(console.error);
+  }
+
+  function loadTweets() {
+    fetch(`${baseUrl}/twitter/getPosts`)
+      .then(response => response.json())
+      .then(tweets => {
+        const tweetList = document.getElementById('tweetList');
+        tweetList.innerHTML = '<h2>Lista de Tweets</h2>';
+        tweets.forEach(tweet => {
+          const tweetItem = document.createElement('div');
+          tweetItem.className = 'tweet-item';
+          tweetItem.textContent = `${tweet.user.username}: ${tweet.text}`;
+          tweetList.appendChild(tweetItem);
+        });
+      })
+      .catch(error => console.error('Error al cargar los tweets:', error));
+  }
+
+  function handleAuth() {
+    if (isAuthenticated()) {
+      logout();
+    } else {
+      login();
+    }
+  }
+
+  function openModal() {
+    document.getElementById("authModal").style.display = "flex";
+  }
+
+  function closeModal() {
+    document.getElementById("authModal").style.display = "none";
+  }
+
+  window.onload = function() {
+    const token = getTokenFromUrl();
+    if (token) {
+      localStorage.setItem("access_token", token);
+      window.history.replaceState({}, document.title, "/");
+    }
+
+    if (isAuthenticated()) {
+      document.getElementById("authButton").textContent = "Cerrar Sesión";
+      document.getElementById("username").value = "Usuario Autenticado";
+    }
+
+    loadTweets();
+  };
+</script>
+</body>
+</html>
+>>>>>>> origin/main

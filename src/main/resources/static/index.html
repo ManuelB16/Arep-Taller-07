@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Twitter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #f5f8fa; color: #0f1419; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+    .title-container { display: flex; align-items: center; gap: 10px; margin-top: 40px; margin-bottom: 10px; }
+    .title-container img { width: 42px; height: 42px; }
+    h1 { font-size: 2rem; color: #1d9bf0; margin: 0; font-weight: 700; }
+    #authButton { background-color: transparent; color: #1d9bf0; border: 1.5px solid #1d9bf0; border-radius: 9999px; padding: 8px 18px; font-weight: 600; cursor: pointer; margin-bottom: 35px; transition: all 0.2s ease; }
+    #authButton:hover { background-color: #e8f5fd; }
+    .form-container, .tweet-list { background: #ffffff; border: 1px solid #ccd6dd; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); width: 95%; max-width: 600px; padding: 25px 20px; margin-bottom: 30px; box-sizing: border-box; }
+    .form-container h2, .tweet-list h2 { font-size: 1.2rem; border-bottom: 1px solid #e1e8ed; padding-bottom: 8px; margin-top: 0; margin-bottom: 16px; font-weight: 600; }
+    input, textarea { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #e1e8ed; background-color: #f7f9f9; color: #0f1419; margin-bottom: 12px; font-size: 15px; outline: none; box-sizing: border-box; }
+    input:focus, textarea:focus { border-color: #1d9bf0; background-color: #fff; }
+    textarea::placeholder, input::placeholder { color: #8a98a5; }
+    button { background-color: #1d9bf0; color: #fff; border: none; border-radius: 9999px; padding: 10px 22px; font-weight: 600; cursor: pointer; transition: background-color 0.2s ease; }
+    button:hover { background-color: #1991db; }
+    .tweet-item { padding: 10px 0; border-bottom: 1px solid #e6ecf0; line-height: 1.4; }
+    .tweet-item:last-child { border-bottom: none; }
+    .modal { display: none; position: fixed; z-index: 99; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
+    .modal-content { background-color: #fff; border-radius: 12px; border: 1px solid #ccd6dd; padding: 25px; width: 90%; max-width: 320px; box-shadow: 0 3px 8px rgba(0,0,0,0.2); text-align: center; position: relative; }
+    .close { position: absolute; top: 8px; right: 12px; color: #555; font-size: 24px; font-weight: bold; cursor: pointer; }
+    .close:hover { color: #000; }
+    .modal-content h2 { margin-top: 0; margin-bottom: 10px; }
+    .modal-content p { color: #657786; font-size: 14px; }
+    @media (max-width: 650px) {
+      h1 { font-size: 1.7rem; }
+      .title-container img { width: 34px; height: 34px; }
+      .form-container, .tweet-list { width: 90%; padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="title-container">
+    <img src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14/assets/svg/1f426.svg" alt="Logo Twitter" />
+    <h1>Mini Twitter</h1>
+  </div>
+
+  <button id="authButton" onclick="handleAuth()">Iniciar Sesión</button>
+
+  <div class="form-container">
+    <h2>Nuevo Tweet</h2>
+    <input type="text" id="username" placeholder="Nombre de usuario" readonly />
+    <textarea id="content" rows="4" maxlength="140" placeholder="¿Qué está pasando?"></textarea>
+    <button onclick="postTweet()">Publicar</button>
+  </div>
+
+  <div class="tweet-list" id="tweetList">
+    <h2>Lista de Tweets</h2>
+  </div>
+
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>No puedes publicar sin iniciar sesión</h2>
+      <p>Debes iniciar sesión para poder twittear.</p>
+      <button onclick="login()">Iniciar Sesión</button>
+    </div>
+  </div>
+
+  <script>
+    const COGNITO_DOMAIN    = "https://mini-twitter.auth.us-east-1.amazoncognito.com";
+    const COGNITO_CLIENT_ID = "5f2pu14oltkqdgb8tuvr77dnc8";
+    const REDIRECT_URI      = "http://localhost:8081/"; 
+
+    const API_BASE = "http://localhost:8081";
+
+    function login() {
+      const authUrl =
+        `${COGNITO_DOMAIN}/oauth2/authorize` +
+        `?client_id=${encodeURIComponent(COGNITO_CLIENT_ID)}` +
+        `&response_type=token` +
+        `&scope=${encodeURIComponent("openid email")}` +
+        `&redirect_uri=${encodeURIComponent(REDIRECT_URI)}`;
+      window.location.href = authUrl;
+    }
+
+    function logout() {
+      localStorage.removeItem("id_token");
+      localStorage.removeItem("access_token");
+      const url =
+        `${COGNITO_DOMAIN}/logout` +
+        `?client_id=${encodeURIComponent(COGNITO_CLIENT_ID)}` +
+        `&logout_uri=${encodeURIComponent(REDIRECT_URI)}`;
+      window.location.href = url;
+    }
+
+    function isAuthenticated() {
+      return !!(localStorage.getItem("id_token") || localStorage.getItem("access_token"));
+    }
+
+    function captureTokensFromHash() {
+      if (window.location.hash && window.location.hash.includes("token")) {
+        const params = new URLSearchParams(window.location.hash.substring(1));
+        const idToken = params.get("id_token");
+        const accessToken = params.get("access_token");
+        if (idToken)   localStorage.setItem("id_token", idToken);
+        if (accessToken) localStorage.setItem("access_token", accessToken);
+        history.replaceState({}, document.title, REDIRECT_URI);
+      }
+    }
+
+    async function postTweet() {
+      const content  = document.getElementById('content').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const token    = localStorage.getItem("id_token") || localStorage.getItem("access_token");
+
+      if (!token) return openModal();
+      if (!content) return alert('El contenido es obligatorio.');
+      if (content.length > 140) return alert('Máximo 140 caracteres.');
+      if (!username) return alert('El nombre de usuario es obligatorio.');
+
+      const tweet = { text: content, username };
+
+      const res = await fetch(`${API_BASE}/twitter/createPost`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(tweet)
+      });
+
+      if (!res.ok) {
+        const msg = await res.text().catch(()=> 'Error publicando el tweet');
+        alert(msg);
+        return;
+      }
+      alert('Tweet publicado correctamente');
+      document.getElementById('content').value = '';
+      loadTweets();
+    }
+
+    async function loadTweets() {
+      const token = localStorage.getItem("id_token") || localStorage.getItem("access_token");
+      const res = await fetch(`${API_BASE}/twitter/getPosts`, {
+        headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+      }).catch((e) => null);
+
+      let tweets = [];
+      if (res && res.ok) {
+        tweets = await res.json().catch(() => []);
+      }
+
+      const tweetList = document.getElementById('tweetList');
+      tweetList.innerHTML = '<h2>Lista de Tweets</h2>';
+      tweets.forEach(t => {
+        const div = document.createElement('div');
+        div.className = 'tweet-item';
+        div.textContent = `${(t.user?.username ?? "anon")}: ${t.text}`;
+        tweetList.appendChild(div);
+      });
+    }
+
+    function handleAuth() {
+      if (isAuthenticated()) logout();
+      else login();
+    }
+
+    function openModal() { document.getElementById("authModal").style.display = "flex"; }
+    function closeModal() { document.getElementById("authModal").style.display = "none"; }
+
+    window.onload = function () {
+      captureTokensFromHash();
+
+      if (isAuthenticated()) {
+        document.getElementById("authButton").textContent = "Cerrar Sesión";
+        document.getElementById("username").value = "Usuario Autenticado";
+      }
+
+      loadTweets();
+    };
+  </script>
+</body>
+</html>

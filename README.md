@@ -115,8 +115,23 @@ StreamService:
 
 https://github.com/user-attachments/assets/b2617f7b-bbe8-4bde-a9f6-5ea7c69a0bb7
 
+7. Pruebas
+  <img width="358" height="107" alt="image" src="https://github.com/user-attachments/assets/ffe79b43-a4bc-4cca-9161-378b26c25132" />
+
+8. Conclusion
+   En el desarrollo del proyecto se consiguen fortalecer las practicas de cognito, la seguridad y a su vez, un clon de twitter apropiado y rapido de implementar.
 
 
+Autores:
+
+Sara Katherin Castillo Garcia y Manuel Felipe Barrera Barrera
+
+Agradecimientos:
+
+Profesor Daniel Benavides.
+
+  
+ 
 
 
 

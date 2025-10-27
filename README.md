@@ -97,6 +97,29 @@ https://github.com/user-attachments/assets/7573c43a-cd51-4223-bde9-4d097d96538e
 
 https://github.com/user-attachments/assets/4977c90e-5f61-44d2-9e0b-5088e37329ae
 
+6. Separación en Microservicios
+  - UserService: Gestionar Usuarios.
+  - PostService: Crear y obtener posts
+  - StreamService: Gestionar el flujo de publicaciones. Los microservicios creados se generaron dentro de lamba, para organizacion y rendimiento.
+Pruebas:
+
+UserService:
+
+https://github.com/user-attachments/assets/dda3f3a9-9b2f-4d0a-aa61-7a2e74e3b996
+
+PostService:
+
+https://github.com/user-attachments/assets/c0e8d628-9b34-46de-9779-0f2daf4ad609
+
+StreamService:
+
+https://github.com/user-attachments/assets/b2617f7b-bbe8-4bde-a9f6-5ea7c69a0bb7
+
+
+
+
+
+
 
    
 

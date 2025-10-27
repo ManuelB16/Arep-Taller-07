@@ -52,7 +52,11 @@ El objetivo fue desplegar un backend funcional en la nube que permita crear y ob
    ```
 
 2. Ejecutar el JAR (local):java -jar target/twitter-0.0.1-SNAPSHOT.jar
-3. Probar con cURL o Postman:
+3. Propar S3: https://arep-taller07.s3.us-east-1.amazonaws.com/index.html
+
+  <img width="1350" height="664" alt="image" src="https://github.com/user-attachments/assets/61413365-d29b-4c67-b077-f2981c23d40f" />
+
+5. Probar con cURL o Postman:
    **Crear POST**
    ```java
    curl -i -X POST -H "Content-Type: application/json" \-d '{"username":"mari","text":"hola"}' \"http://localhost:8080/twitter/createPost"
@@ -92,7 +96,6 @@ https://github.com/user-attachments/assets/7573c43a-cd51-4223-bde9-4d097d96538e
  ```
 
 https://github.com/user-attachments/assets/4977c90e-5f61-44d2-9e0b-5088e37329ae
-
 
 
    
